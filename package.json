@@ -11,11 +11,15 @@
     },
     "devDependencies": {
         "axios": "^0.21",
+        "husky": "^5.0.9",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
     },
-    "dependencies": {
-        "husky": "^5.0.8"
+    "dependencies": {},
+    "husky": {
+        "hooks": {
+            "pre-commit": "vendor/bin/php-cs-fixer fix && git add ."
+        }
     }
 }
