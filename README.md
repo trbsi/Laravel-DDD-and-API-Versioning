@@ -9,3 +9,7 @@ Just a CRUD Blog web app with written in DDD.
 ## Versioning References
 - https://medium.com/mestredev/versioning-your-rest-api-with-laravel-646bcc1f70a4
 - https://shouts.dev/laravel-api-versioning-with-api-key-in-simple-method
+
+
+# Versioning
+- for versioning we need to switch namespaces, tests and translations

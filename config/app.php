@@ -177,6 +177,7 @@ return [
 
         //V1 service providers
         App\Code\V1\Auth\Infrastructure\ServiceProviders\AuthServiceProvider::class,
+        App\Code\V1\Users\Infrastructure\ServiceProviders\UserServiceProvider::class,
 
     ],
 

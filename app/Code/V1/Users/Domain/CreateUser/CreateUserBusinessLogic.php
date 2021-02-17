@@ -3,24 +3,24 @@ declare(strict_types=1);
 
 namespace App\Code\V1\Users\Domain\CreateUser;
 
-use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserInterface;
-use App\Code\V1\Users\Domain\CreateUser\Services\SendEmailInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserServiceInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SendEmailServiceInterface;
 use App\Models\User;
 
 final class CreateUserBusinessLogic
 {
     /**
-     * @var SaveUserInterface
+     * @var SaveUserServiceInterface
      */
-    private SaveUserInterface $saveUser;
+    private SaveUserServiceInterface $saveUser;
     /**
-     * @var SendEmailInterface
+     * @var SendEmailServiceInterface
      */
-    private SendEmailInterface $sendEmail;
+    private SendEmailServiceInterface $sendEmail;
 
     public function __construct(
-        SaveUserInterface $saveUser,
-        SendEmailInterface $sendEmail
+        SaveUserServiceInterface $saveUser,
+        SendEmailServiceInterface $sendEmail
     ) {
         $this->saveUser = $saveUser;
         $this->sendEmail = $sendEmail;

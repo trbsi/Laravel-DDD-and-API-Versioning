@@ -5,7 +5,7 @@ namespace App\Code\V1\Users\Domain\CreateUser\Services;
 
 use App\Models\User;
 
-interface SaveUserInterface
+interface SaveUserServiceInterface
 {
     public function save(string $name, string $password, string $email): User;
 }

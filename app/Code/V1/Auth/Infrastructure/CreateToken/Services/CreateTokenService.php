@@ -12,12 +12,13 @@ final class CreateTokenService implements CreateTokenInterface
 {
     public function createToken(string $email, string $password): string
     {
+        /** @var User $user */
         $user = User::where('email', $email)->first();
 
         if (! $user || ! Hash::check($password, $user->password)) {
             throw ValidationException::withMessages(['The provided credentials are incorrect.']);
         }
 
-        return $user->createToken()->plainTextToken;
+        return $user->createToken($user->getEmail())->plainTextToken;
     }
 }

@@ -5,9 +5,10 @@ namespace App\Code\V1\Users\UI\Controllers;
 use App\Code\V1\Users\Application\Middlemen\CreateUserMiddleman;
 use App\Code\V1\Users\Application\Middlemen\ReadUserMiddleman;
 use App\Code\V1\Users\UI\Requests\CreateUserRequest;
-use App\Code\V1\Users\UI\Requests\UserResource;
+use App\Code\V1\Users\UI\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 final class UsersController extends Controller
@@ -27,8 +28,10 @@ final class UsersController extends Controller
         try {
             $user = $readUserMiddleman->read($id);
             return new UserResource($user);
-        } catch (Exception $e) {
+        } catch (ModelNotFoundException $e) {
             abort(404);
+        } catch (Exception $e) {
+            abort($e->getCode(), $e->getMessage());
         }
     }
 

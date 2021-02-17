@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace App\Code\V1\Users\Infrastructure\CreateUser\Services;
 
-use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-final class SaveUserToDatabase implements SaveUserInterface
+final class SaveUserServiceToDatabase implements SaveUserServiceInterface
 {
     public function save(string $name, string $password, string $email): User
     {

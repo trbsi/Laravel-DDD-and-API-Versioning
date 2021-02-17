@@ -13,7 +13,10 @@ final class LoginController extends Controller
     public function createToken(CreateTokenRequest $request, CreateTokenMiddleman $createTokenMiddleman)
     {
         try  {
-            $createTokenMiddleman->createToken($request->email, $request->password);
+            $token = $createTokenMiddleman->createToken($request->email, $request->password);
+            return response()->json([
+                'token' => $token
+            ]);
         } catch (Exception $e) {
             abort($e->getCode(), $e->getMessage());
         }
