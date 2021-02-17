@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\Code\V1\Users\Domain\CreateUser;
 
-use App\Code\V1\Users\Domain\CreateUser\Interfaces\SaveUserInterface;
-use App\Code\V1\Users\Domain\CreateUser\Interfaces\SendEmailInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SendEmailInterface;
 use App\Models\User;
 
 final class CreateUserBusinessLogic

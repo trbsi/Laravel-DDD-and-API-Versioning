@@ -2,8 +2,8 @@
 
 namespace App\Code\V1\Users\Infrastructure\ServiceProviders;
 
-use App\Code\V1\Users\Domain\CreateUser\Interfaces\SaveUserInterface;
-use App\Code\V1\Users\Domain\CreateUser\Interfaces\SendEmailInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SendEmailInterface;
 use App\Code\V1\Users\Infrastructure\CreateUser\Services\SaveUserToDatabase;
 use App\Code\V1\Users\Infrastructure\CreateUser\Services\SendEmailToUser;
 use Illuminate\Support\ServiceProvider;

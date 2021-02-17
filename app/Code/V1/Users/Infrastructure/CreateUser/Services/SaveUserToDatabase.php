@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Code\V1\Users\Infrastructure\CreateUser\Services;
 
-use App\Code\V1\Users\Domain\CreateUser\Interfaces\SaveUserInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 

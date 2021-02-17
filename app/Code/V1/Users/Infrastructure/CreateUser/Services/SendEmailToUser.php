@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Code\V1\Users\Infrastructure\CreateUser\Services;
 
-use App\Code\V1\Users\Domain\CreateUser\Interfaces\SendEmailInterface;
+use App\Code\V1\Users\Domain\CreateUser\Services\SendEmailInterface;
 use App\Code\V1\Users\Infrastructure\CreateUser\Mailables\WelcomeUserMailable;
 use Illuminate\Support\Facades\Mail;
 
