@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Code\V1\Users\Domain\CreateUser\Services;
+namespace App\Code\V1\Users\Domain\CreateUser;
 
 use App\Code\V1\Users\Domain\CreateUser\Interfaces\SaveUserInterface;
 use App\Code\V1\Users\Domain\CreateUser\Interfaces\SendEmailInterface;
 use App\Models\User;
 
-final class CreateUserService
+final class CreateUserBusinessLogic
 {
     /**
      * @var SaveUserInterface

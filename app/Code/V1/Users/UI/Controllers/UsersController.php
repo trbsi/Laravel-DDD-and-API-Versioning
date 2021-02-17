@@ -2,7 +2,8 @@
 
 namespace App\Code\V1\Users\UI\Controllers;
 
-use App\Code\V1\Users\Application\Services\CreateUserMiddleman;
+use App\Code\V1\Users\Application\Middlemen\CreateUserMiddleman;
+use App\Code\V1\Users\Application\Middlemen\ReadUserMiddleman;
 use App\Code\V1\Users\UI\Requests\CreateUserRequest;
 use App\Code\V1\Users\UI\Requests\UserResource;
 use App\Http\Controllers\Controller;
@@ -21,12 +22,22 @@ final class UsersController extends Controller
         }
     }
 
-    public function read(Request $request)
+    public function read(int $id, ReadUserMiddleman $readUserMiddleman)
+    {
+        try {
+            $user = $readUserMiddleman->read($id);
+            return new UserResource($user);
+        } catch (Exception $e) {
+            abort(404);
+        }
+    }
+
+    public function all(Request $request)
     {
 
     }
 
-    public function update(Request $request)
+    public function update(Request $request, int $id)
     {
 
     }
