@@ -19,7 +19,6 @@ final class UsersController extends Controller
             $user = $createUserMiddleman->create($request->name, $request->password, $request->email);
             return new UserResource($user);
         } catch (Exception $e) {
-            dd($e);
             abort($e->getCode(), $e->getMessage());
         }
     }
