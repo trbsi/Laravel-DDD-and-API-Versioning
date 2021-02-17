@@ -41,7 +41,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     public function getName(): string
     {
         return $this->name;
@@ -72,6 +71,17 @@ class User extends Authenticatable
     public function setPassword(string $password): self
     {
         $this->password = $password;
+        return $this;
+    }
+
+    public function getEmailVerifiedAt(): ?string
+    {
+        return $this->email_verified_at;
+    }
+
+    public function setEmailVerifiedAt(\DateTimeImmutable $emailVerifiedAt): self
+    {
+        $this->email_verified_at = $emailVerifiedAt;
         return $this;
     }
 }
