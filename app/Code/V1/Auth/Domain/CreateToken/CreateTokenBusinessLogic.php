@@ -19,11 +19,11 @@ final class CreateTokenBusinessLogic
 
     public function createToken(string $email, string $password): string
     {
-         try {
-             return $this->createToken->createToken($email, $password);
-         } catch (ValidationException $e) {
-             //@TODO provjeriti koji exceptioni postoje u Laravelu
-             throw new Exception(implode(' ', Arr::flatten($e->errors())), $e->status);
-         }
+        try {
+            return $this->createToken->createToken($email, $password);
+        } catch (ValidationException $e) {
+            //@TODO provjeriti koji exceptioni postoje u Laravelu
+            throw new Exception(implode(' ', Arr::flatten($e->errors())), $e->status);
+        }
     }
 }

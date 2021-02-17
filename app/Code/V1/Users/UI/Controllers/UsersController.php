@@ -19,6 +19,7 @@ final class UsersController extends Controller
             $user = $createUserMiddleman->create($request->name, $request->password, $request->email);
             return new UserResource($user);
         } catch (Exception $e) {
+            dd($e);
             abort($e->getCode(), $e->getMessage());
         }
     }
@@ -37,16 +38,13 @@ final class UsersController extends Controller
 
     public function all(Request $request)
     {
-
     }
 
     public function update(Request $request, int $id)
     {
-
     }
 
     public function delete(Request $request)
     {
-
     }
 }

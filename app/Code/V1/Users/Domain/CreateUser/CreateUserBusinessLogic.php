@@ -6,16 +6,11 @@ namespace App\Code\V1\Users\Domain\CreateUser;
 use App\Code\V1\Users\Domain\CreateUser\Services\SaveUserServiceInterface;
 use App\Code\V1\Users\Domain\CreateUser\Services\SendEmailServiceInterface;
 use App\Models\User;
+use Exception;
 
 final class CreateUserBusinessLogic
 {
-    /**
-     * @var SaveUserServiceInterface
-     */
     private SaveUserServiceInterface $saveUser;
-    /**
-     * @var SendEmailServiceInterface
-     */
     private SendEmailServiceInterface $sendEmail;
 
     public function __construct(
