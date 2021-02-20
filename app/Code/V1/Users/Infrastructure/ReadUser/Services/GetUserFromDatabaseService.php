@@ -6,7 +6,7 @@ namespace App\Code\V1\Users\Infrastructure\ReadUser\Services;
 use App\Code\V1\Users\Domain\ReadUser\Services\ReadUserServiceInterface;
 use App\Models\User;
 
-final class ReadUserService implements ReadUserServiceInterface
+final class GetUserFromDatabaseService implements ReadUserServiceInterface
 {
     public function readUser(int $id): User
     {

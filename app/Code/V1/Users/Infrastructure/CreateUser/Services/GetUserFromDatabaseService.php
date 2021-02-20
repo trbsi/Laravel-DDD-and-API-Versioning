@@ -6,7 +6,7 @@ namespace App\Code\V1\Users\Infrastructure\CreateUser\Services;
 use App\Code\V1\Users\Domain\CreateUser\Services\GetUserServiceInterface;
 use App\Models\User;
 
-final class GetUserService implements GetUserServiceInterface
+final class GetUserFromDatabaseService implements GetUserServiceInterface
 {
     public function getUserByEmail(string $email): User
     {
