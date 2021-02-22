@@ -1,0 +1,42 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Console\Commands\Services;
+
+use Nette\PhpGenerator\PhpNamespace;
+
+final class MakeBusinessLogicClass extends MakeClassAbstract
+{
+    public function getNamespace(
+        string $version,
+        string $domain,
+        string $classNameWithoutSuffix
+    ): string {
+        return sprintf('App\Code\%s\%s\Domain\%s', $version, $domain, $classNameWithoutSuffix);
+    }
+
+    protected function getBasePath(
+        string $version,
+        string $domain,
+        string $classNameWithoutSuffix
+    ): string {
+        return sprintf('%s/Code/%s/%s/Domain/%s', app_path(), $version, $domain, $classNameWithoutSuffix);
+    }
+
+    protected function generateClass(
+        PhpNamespace $namespace,
+        string $classNameWithSuffix,
+        string $classNameWithoutSuffix,
+        string $version,
+        string $domain
+    ): PhpNamespace {
+        $class = $namespace->addClass($classNameWithSuffix);
+        $class
+            ->setFinal(true)
+            ->addMethod('__construct')
+        ;
+
+        return $namespace;
+    }
+}

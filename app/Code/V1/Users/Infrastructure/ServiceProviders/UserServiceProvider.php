@@ -9,15 +9,12 @@ use App\Code\V1\Users\Domain\ReadUser\Services\ReadUserServiceInterface;
 use App\Code\V1\Users\Infrastructure\CreateUser\Services\GetUserFromDatabaseService;
 use App\Code\V1\Users\Infrastructure\CreateUser\Services\SaveUserServiceToDatabase;
 use App\Code\V1\Users\Infrastructure\CreateUser\Services\SendEmailServiceToUser;
-use App\Code\V1\Users\Infrastructure\ReadUser\Services\GetUserFromDatabaseService;
 use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -27,12 +24,9 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap services.
-     *
-     * @return void
      */
     public function boot()
     {
-        //
     }
 
     private function createUser(): void

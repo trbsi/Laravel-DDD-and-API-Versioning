@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Code\V1\Auth\Infrastructure\CreateToken\Services;
 
-use App\Code\V1\Auth\Domain\CreateToken\Interfaces\CreateTokenInterface;
+use App\Code\V1\Auth\Domain\CreateToken\Services\CreateTokenServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-final class CreateTokenService implements CreateTokenInterface
+final class CreateTokenServiceService implements CreateTokenServiceInterface
 {
     public function createToken(string $email, string $password): string
     {

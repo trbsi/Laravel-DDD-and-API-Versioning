@@ -1,18 +1,19 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Code\V1\Auth\Domain\CreateToken;
 
-use App\Code\V1\Auth\Domain\CreateToken\Interfaces\CreateTokenInterface;
+use App\Code\V1\Auth\Domain\CreateToken\Services\CreateTokenServiceInterface;
 use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 
 final class CreateTokenBusinessLogic
 {
-    private CreateTokenInterface $createToken;
+    private CreateTokenServiceInterface $createToken;
 
-    public function __construct(CreateTokenInterface $createToken)
+    public function __construct(CreateTokenServiceInterface $createToken)
     {
         $this->createToken = $createToken;
     }
