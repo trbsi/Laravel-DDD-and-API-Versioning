@@ -30,13 +30,13 @@ final class MakeBusinessLogicClass extends MakeClassAbstract
         string $classNameWithoutSuffix,
         string $version,
         string $domain
-    ): PhpNamespace {
+    ): void {
         $class = $namespace->addClass($classNameWithSuffix);
         $class
             ->setFinal(true)
             ->addMethod('__construct')
         ;
 
-        return $namespace;
+        $logicMethod = $class->addMethod('logic');
     }
 }

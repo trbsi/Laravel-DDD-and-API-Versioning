@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console\Commands\Services;
 
+use Exception;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 
@@ -17,10 +18,7 @@ abstract class MakeClassAbstract
     ): void {
         $classNameWithoutSuffix = $className;
         $classNameWithSuffix = $className;
-
-        if (!str_starts_with($version, 'V')) {
-            $version = sprintf('V%s', $version);
-        }
+        $version = sprintf('V%s', $version);
 
         if (!str_ends_with($className, $classType)) {
             $classNameWithSuffix = sprintf('%s%s', $className, $classType);
@@ -28,13 +26,19 @@ abstract class MakeClassAbstract
             $classNameWithoutSuffix = str_replace($classType, '', $classNameWithoutSuffix);
         }
 
-        /** @TODO check if file exists and throw exception */
+        $basePath = $this->getBasePath($version, $domain, $classNameWithoutSuffix);
+        $filePath = sprintf('%s/%s.php', $basePath, $classNameWithSuffix);
+
+        if (file_exists($filePath)) {
+            throw new Exception('Class exists: '.$classNameWithSuffix);
+        }
+
         $file = new PhpFile();
         $file->setStrictTypes();
 
         $namespace = $this->getNamespace($version, $domain, $classNameWithoutSuffix);
         $namespace = $file->addNamespace($namespace);
-        $namespace = $this->generateClass(
+        $this->generateClass(
             $namespace,
             $classNameWithSuffix,
             $classNameWithoutSuffix,
@@ -42,8 +46,6 @@ abstract class MakeClassAbstract
             $domain
         );
 
-        $basePath = $this->getBasePath($version, $domain, $classNameWithoutSuffix);
-        $filePath = sprintf('%s/%s.php', $basePath, $classNameWithSuffix);
         if (!file_exists($basePath)) {
             mkdir($basePath, 0755, true);
         }
@@ -68,5 +70,5 @@ abstract class MakeClassAbstract
         string $classNameWithoutSuffix,
         string $version,
         string $domain
-    ): PhpNamespace;
+    ): void;
 }

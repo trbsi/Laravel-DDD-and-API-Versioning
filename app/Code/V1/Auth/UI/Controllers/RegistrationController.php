@@ -11,10 +11,10 @@ use Exception;
 
 final class RegistrationController extends Controller
 {
-    public function register(RegistrationRequest $request, RegistrationMiddleman $registrationMiddleman)
+    public function registration(RegistrationRequest $request, RegistrationMiddleman $registrationMiddleman)
     {
         try {
-            // $registrationMiddleman->
+            //$registrationMiddleman->mediate();
         } catch (Exception $e) {
         }
     }

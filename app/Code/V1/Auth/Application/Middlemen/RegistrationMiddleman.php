@@ -14,4 +14,9 @@ final class RegistrationMiddleman
     {
         $this->registrationBusinessLogic = $registrationBusinessLogic;
     }
+
+    public function mediate(int $someParam)
+    {
+        //$this->registrationBusinessLogic->logic(..some params)
+    }
 }

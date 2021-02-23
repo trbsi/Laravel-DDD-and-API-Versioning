@@ -9,4 +9,8 @@ final class RegistrationBusinessLogic
     public function __construct()
     {
     }
+
+    public function logic()
+    {
+    }
 }

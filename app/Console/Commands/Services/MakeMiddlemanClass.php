@@ -37,7 +37,7 @@ final class MakeMiddlemanClass extends MakeClassAbstract
         string $classNameWithoutSuffix,
         string $version,
         string $domain
-    ): PhpNamespace {
+    ): void {
         $propertyClass = sprintf('%sBusinessLogic', $classNameWithoutSuffix);
         $propertyName = lcfirst($propertyClass);
 
@@ -61,15 +61,21 @@ final class MakeMiddlemanClass extends MakeClassAbstract
 
         //add construct to class
         $constructBody = sprintf('$this->%s = $%s;', $propertyName, $propertyName);
-        $constructMethod =
-            $class->addMethod('__construct')
-                ->setBody($constructBody)
-            ;
+        $constructMethod = $class->addMethod('__construct')
+            ->setBody($constructBody)
+        ;
         $constructMethod
             ->addParameter($propertyName)
             ->setType($propertyClass)
         ;
 
-        return $namespace;
+        $mediateToBusinessLogicMethod = $class->addMethod('mediate')
+            ->addBody(sprintf('//$this->%s->logic(..some params)', $propertyName))
+        ;
+
+        $mediateToBusinessLogicMethod
+            ->addParameter('someParam')
+            ->setType('int')
+        ;
     }
 }
