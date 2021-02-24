@@ -5,34 +5,36 @@ declare(strict_types=1);
 namespace App\Console\Commands\Services;
 
 use Illuminate\Support\Str;
-use Nette\PhpGenerator\GlobalFunction;
+use Nette\PhpGenerator\Method;
 
 final class MakeControllerMethod
 {
     public function make(
         string $className
-    ): GlobalFunction {
+    ): Method {
         $methodName = Str::camel($className);
         $middlemanClass = sprintf('%sMiddleman', $className);
         $middlemanParameter = Str::camel($middlemanClass);
 
-        $function = new GlobalFunction($methodName);
-        $function
+        $method = new Method($methodName);
+        $method->setPublic();
+
+        $method
             ->addParameter('request')
             ->setType('Request')
         ;
-        $function
+        $method
             ->addParameter($middlemanParameter)
             ->setType($middlemanClass)
         ;
 
-        $function->addBody(
+        $method->addBody(
             sprintf('try {
     //$%s->mediate();
 } catch (Exception $e) {
 }', $middlemanParameter)
         );
 
-        return $function;
+        return $method;
     }
 }
