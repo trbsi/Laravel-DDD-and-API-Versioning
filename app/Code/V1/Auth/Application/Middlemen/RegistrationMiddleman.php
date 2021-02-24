@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Code\V1\Auth\Application\Middlemen;
 
 use App\Code\V1\Auth\Domain\Registration\RegistrationBusinessLogic;
+use App\Models\User;
 
 final class RegistrationMiddleman
 {
@@ -15,8 +16,8 @@ final class RegistrationMiddleman
         $this->registrationBusinessLogic = $registrationBusinessLogic;
     }
 
-    public function mediate(int $someParam)
+    public function mediate(string $email, string $name, string $password): User
     {
-        //$this->registrationBusinessLogic->logic(..some params)
+        return $this->registrationBusinessLogic->logic($email, $name, $password);
     }
 }

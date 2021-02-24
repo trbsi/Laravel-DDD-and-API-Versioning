@@ -70,7 +70,7 @@ final class MakeMiddlemanClass extends MakeClassAbstract
         ;
 
         $mediateToBusinessLogicMethod = $class->addMethod('mediate')
-            ->addBody(sprintf('//$this->%s->logic(..some params)', $propertyName))
+            ->addBody(sprintf('//return $this->%s->logic(..some params);', $propertyName))
         ;
 
         $mediateToBusinessLogicMethod

@@ -6,7 +6,7 @@ use App\Code\V1\Users\UI\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [LoginController::class, 'createToken']);
-Route::post('register', [RegistrationController::class, 'register']);
+Route::post('registration', [RegistrationController::class, 'registration']);
 
 Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     Route::prefix('users')->group(function () {
