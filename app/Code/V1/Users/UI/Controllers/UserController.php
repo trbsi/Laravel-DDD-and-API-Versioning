@@ -11,7 +11,7 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-final class UsersController extends Controller
+final class UserController extends Controller
 {
     public function create(CreateUserRequest $request, CreateUserMiddleman $createUserMiddleman)
     {
