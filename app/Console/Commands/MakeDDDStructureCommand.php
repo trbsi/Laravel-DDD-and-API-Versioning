@@ -2,14 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Console\Commands\Services\MakeBusinessLogicClass;
-use App\Console\Commands\Services\MakeControllerMethod;
-use App\Console\Commands\Services\MakeInfrastructureStructure;
-use App\Console\Commands\Services\MakeMiddlemanClass;
+use App\Console\Commands\Services\MakeDDDStructure\MakeBusinessLogicClass;
+use App\Console\Commands\Services\MakeDDDStructure\MakeControllerMethod;
+use App\Console\Commands\Services\MakeDDDStructure\MakeInfrastructureStructure;
+use App\Console\Commands\Services\MakeDDDStructure\MakeMiddlemanClass;
 use Exception;
 use Illuminate\Console\Command;
 
-class CreateDDDStructureCommand extends Command
+class MakeDDDStructureCommand extends Command
 {
     /**
      * The name and signature of the console command.

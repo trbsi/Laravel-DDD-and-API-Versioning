@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Console\Commands\Services;
+namespace App\Console\Commands\Services\MakeDDDStructure;
 
 use Illuminate\Support\Str;
 use Nette\PhpGenerator\Method;
