@@ -29,12 +29,14 @@ final class ReplaceApiVersionInFiles
             $file = file_get_contents($item->getRealPath());
             $file = str_replace(
                 [
-                    sprintf('\V%s\\', $highestApiVersion),
-                    sprintf("__('v%s", $highestApiVersion),
+                    sprintf('\V%s\\', $highestApiVersion), //namsepace
+                    sprintf("__('v%s", $highestApiVersion), //translations
+                    sprintf("'v%s'", $highestApiVersion), //routes
                 ],
                 [
                     sprintf('\V%s\\', $nextApiVersion),
                     sprintf("__('v%s", $nextApiVersion),
+                    sprintf("'v%s'", $nextApiVersion),
                 ],
                 $file
             );

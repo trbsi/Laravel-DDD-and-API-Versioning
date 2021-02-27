@@ -21,10 +21,13 @@ class MakeNewApiVersionCommand extends Command
      *
      * @var string
      */
-    protected $description = 'This creates new api version. Copies latest API folder from "Code" folder and creates new version';
+    protected $description = 'This creates new api version. Copies latest API folder from "Code", "routes", "language" and "tests" folder and creates new version';
 
     private CopyFilesAndDirectories $copyFilesAndDirectories;
     private string $apiDirectoryPath;
+    private string $languageDirectoryPath;
+    private string $routesDirectoryPath;
+    private array $testsDirectoryPaths;
     private int $highestApiVersion;
     private int $nextApiVersion;
     private string $highestApiVersionDirectory;
@@ -52,22 +55,30 @@ class MakeNewApiVersionCommand extends Command
     {
         $this->info('STARTED...');
         $this->apiDirectoryPath = app_path('Code');
+        $this->languageDirectoryPath = base_path(sprintf('resources%1$slang%1$sen', \DIRECTORY_SEPARATOR)); // resources/lang/en
+        $this->routesDirectoryPath = base_path(sprintf('routes%1$sapi', \DIRECTORY_SEPARATOR)); //routes/api
+        $this->testsDirectoryPaths = [
+            base_path(sprintf('tests%1$sFeature%1$sCode', \DIRECTORY_SEPARATOR)), //tests/Feature/Code
+            base_path(sprintf('tests%1$sUnit%1$sCode', \DIRECTORY_SEPARATOR)), //tests/Feature/Code
+        ];
 
         $this
-            ->getHighestApiVersion()
+            ->getHighestApiVersionAndCodeDirectoryPath()
             ->copyCodeFilesAndDirectories()
             ->copyLanguageFilesAndDirectories()
-            ->replaceApiVersionInFiles()
+            ->copyRoutesDirectory()
+            ->copyTestsDirectory()
+            ->replaceApiVersionInCodeFiles()
+            ->replaceApiVersionInTests()
+            ->replaceApiVersionInRoutes()
         ;
 
-        //@TODO copy tests files
-        //@TODO copy routes
         $this->info('DONE!');
 
         return 0;
     }
 
-    private function getHighestApiVersion(): self
+    private function getHighestApiVersionAndCodeDirectoryPath(): self
     {
         $directory = new DirectoryIterator($this->apiDirectoryPath);
         $highestApiVersion = 1;
@@ -119,17 +130,13 @@ class MakeNewApiVersionCommand extends Command
     {
         $this->info('Copying language directories and files');
         $sourceFolder = [
-            base_path('resources'),
-            'lang',
-            'en',
+            $this->languageDirectoryPath,
             sprintf('v%s', $this->highestApiVersion),
         ];
         $sourceFolder = implode(\DIRECTORY_SEPARATOR, $sourceFolder);
 
         $destinationDirectory = [
-            base_path('resources'),
-            'lang',
-            'en',
+            $this->languageDirectoryPath,
             sprintf('v%s', $this->nextApiVersion),
         ];
         $destinationDirectory = implode(\DIRECTORY_SEPARATOR, $destinationDirectory);
@@ -142,11 +149,98 @@ class MakeNewApiVersionCommand extends Command
         return $this;
     }
 
-    private function replaceApiVersionInFiles(): self
+    private function copyRoutesDirectory(): self
+    {
+        $this->info('Copying routes');
+        $sourceFolder = [
+            $this->routesDirectoryPath,
+            sprintf('v%s', $this->highestApiVersion),
+        ];
+        $sourceFolder = implode(\DIRECTORY_SEPARATOR, $sourceFolder);
+
+        $destinationDirectory = [
+            $this->routesDirectoryPath,
+            sprintf('v%s', $this->nextApiVersion),
+        ];
+        $destinationDirectory = implode(\DIRECTORY_SEPARATOR, $destinationDirectory);
+        $this->copyFilesAndDirectories->copyOldToNewVersion(
+            $sourceFolder,
+            $destinationDirectory
+        );
+
+        return $this;
+    }
+
+    private function copyTestsDirectory(): self
+    {
+        $this->info('Copying tests');
+
+        foreach ($this->testsDirectoryPaths as $testsDirectoryPath) {
+            $sourceFolder = [
+                $testsDirectoryPath,
+                sprintf('V%s', $this->highestApiVersion),
+            ];
+            $sourceFolder = implode(\DIRECTORY_SEPARATOR, $sourceFolder);
+
+            $destinationDirectory = [
+                $testsDirectoryPath,
+                sprintf('V%s', $this->nextApiVersion),
+            ];
+            $destinationDirectory = implode(\DIRECTORY_SEPARATOR, $destinationDirectory);
+            $this->copyFilesAndDirectories->copyOldToNewVersion(
+                $sourceFolder,
+                $destinationDirectory
+            );
+        }
+
+        return $this;
+    }
+
+    private function replaceApiVersionInCodeFiles(): self
     {
         $this->info('Replacing api version in files');
         $this->replaceApiVersionInFiles->replaceVersion(
             $this->nextApiVersionDirectory,
+            $this->highestApiVersion,
+            $this->nextApiVersion
+        );
+
+        return $this;
+    }
+
+    private function replaceApiVersionInTests(): self
+    {
+        $this->info('Replacing api version in tests');
+
+        foreach ($this->testsDirectoryPaths as $testsDirectoryPath) {
+            $nextVersionTestsDirectoryPath = [
+                $testsDirectoryPath,
+                sprintf('V%s', $this->nextApiVersion),
+            ];
+            $nextVersionTestsDirectoryPath = implode(\DIRECTORY_SEPARATOR, $nextVersionTestsDirectoryPath);
+
+            $this->replaceApiVersionInFiles->replaceVersion(
+                $nextVersionTestsDirectoryPath,
+                $this->highestApiVersion,
+                $this->nextApiVersion
+            );
+        }
+
+        return $this;
+    }
+
+    private function replaceApiVersionInRoutes(): self
+    {
+        $this->info('Replacing api version in routes');
+
+        $nextVersionRoutesDirectoryPath = [
+            $this->routesDirectoryPath,
+            sprintf('v%s', $this->nextApiVersion),
+        ];
+        $nextVersionRoutesDirectoryPath = implode(\DIRECTORY_SEPARATOR, $nextVersionRoutesDirectoryPath);
+
+        $this->replaceApiVersionInFiles->replaceVersion(
+            $nextVersionRoutesDirectoryPath,
             $this->highestApiVersion,
             $this->nextApiVersion
         );
