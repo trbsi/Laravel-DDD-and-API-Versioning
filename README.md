@@ -35,3 +35,6 @@ fi
 
 echo "php-cs-fixer pre commit hook finish"
 ```
+
+# Laravel Sail and Docker
+- https://tech.osteel.me/posts/you-dont-need-laravel-sail
